@@ -47,12 +47,13 @@ kind: Ingress
 metadata:
   name: app1-ingress
   annotations:
-    kubernetes.io/ingress.class: alb
+    # kubernetes.io/ingress.class: alb # it is deprecated
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
     alb.ingress.kubernetes.io/group.name: charan466
 spec:
+  ingressClassName: alb
   rules:
   - host: "app1.daws2025.online" # ALB rule
     http:
