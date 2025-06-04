@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app1
+  # these labels belongs to deplyment resource
+  labels:
+    name: app1
+    purpose: ingress
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: web
+      app: nginx
+    # below is the pod defination
+  template:
+    metadata:
+      labels:
+        tier: web
+        app: nginx
+        extra-key: extra-value
+    spec:
+      containers:
+      - name: app1
+        image: charan466/app1:v1.0
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  selector:
+    tier: web
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 80 #service-port
+    targetPort: 80 #target-port
